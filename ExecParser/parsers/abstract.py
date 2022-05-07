@@ -1,16 +1,29 @@
 from abc import ABCMeta, abstractmethod
+import lief
+
+
+class UnknownFormat(TypeError):
+    pass
 
 
 class AbstractExecutable(object):
     __metaclass__ = ABCMeta
 
-    @abstractmethod
-    def __init__(self):
-        pass
+    _instance = None
+
+    def __new__(cls, exec_file):
+        if lief.EXE_FORMATS.UNKNOWN == lief.parse(exec_file).format:
+            raise UnknownFormat(exec_file)
+
+    def __init__(self, exec_file):
+        self.binary = lief.parse(exec_file)
 
     @abstractmethod
     def get_basic_info(self):
         pass
+
+    def get_header(self):
+        print(f"From Abstract {self.binary.format}")
 
     @abstractmethod
     def get_hex(self):
