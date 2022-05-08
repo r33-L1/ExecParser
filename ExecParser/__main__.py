@@ -18,12 +18,12 @@ def main():
     helper = cmdhelper.CmdHelper()
 
     parser = argparse.ArgumentParser(description='Executable files analyzing and modification')
-    parser.add_argument('-v', '--verbose', action="count", default=0,
-                        help='Set verbosity level')
-    parser.add_argument('--version', action="store_true",
-                        help='Print current version of ExecParser')
-    parser.add_argument('exec_file', nargs='?', metavar='EXECUTABLE',
-                        default=None, help='Executable file to parse')
+    parser.add_argument('-v', '--verbose', action="count", default=0, help='Set verbosity level')
+    parser.add_argument('--version', action="store_true", help='Print current version of ExecParser')
+    parser.add_argument('exec_file', nargs='?', metavar='EXECUTABLE', default=None, help='Executable file to parse')
+    parser.add_argument('--header', action='store_true', help='Print header')
+    parser.add_argument('-s', '--sections', action='store_true', help='Print sections info')
+    parser.add_argument('-sM', '--section_more', help='Print additional section info', type=str)
 
     # PARSING ARGUMENTS
     args = parser.parse_args()
@@ -57,8 +57,8 @@ def main():
 
     # PARSE
     if args.exec_file:
-        helper.process(args)
         logging.debug(f"Launch with {args.exec_file}")
+        helper.process(args)
 
 
 if __name__ == '__main__':

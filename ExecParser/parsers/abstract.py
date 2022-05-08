@@ -23,7 +23,10 @@ class AbstractExecutable(object):
         pass
 
     def get_header(self):
-        print(f"From Abstract {self.binary.format}")
+        return self.binary.header
+
+    def print_sections(self, *argc, **argv,):
+        pass
 
     @abstractmethod
     def get_hex(self):
