@@ -4,13 +4,11 @@
 #  Vladislav Burtsev (https://github.com/r33-L1)
 #
 
-import os
 import logging
 
 
 def main():
     import argparse
-    import glob
 
     from ExecParser import logger
     from ExecParser.parsers import cmdhelper
@@ -22,8 +20,10 @@ def main():
     parser.add_argument('--version', action="store_true", help='Print current version of ExecParser')
     parser.add_argument('exec_file', nargs='?', metavar='EXECUTABLE', default=None, help='Executable file to parse')
     parser.add_argument('--header', action='store_true', help='Print header')
-    parser.add_argument('-s', '--sections', action='store_true', help='Print sections info')
-    parser.add_argument('-sM', '--section_more', help='Print additional section info', type=str)
+    parser.add_argument('-seg', '--segments', action='store_true', help='Print sections')
+    parser.add_argument('-sec', '--sections', action='store_true', help='Print segments')
+    parser.add_argument('-segi', '--segment_info', help='Print additional segment info', type=str)
+    parser.add_argument('-seci', '--section_info', help='Print additional section info', type=str)
 
     # PARSING ARGUMENTS
     args = parser.parse_args()

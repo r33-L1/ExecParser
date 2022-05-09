@@ -17,13 +17,19 @@ class CmdHelper(object):
         logger.info(f"Assuming your file is a {self.my_parser.format}")
 
         if args.header:
-            print(self.my_parser.get_header())
+            self.my_parser.print_header()
+
+        elif args.segments:
+            self.my_parser.print_segments()
+
+        elif args.segment_info:
+            self.my_parser.print_segment_info(args.segment_info)
 
         elif args.sections:
             self.my_parser.print_sections()
 
-        elif args.section_more:
-            self.my_parser.print_sections(args.section_more)
+        elif args.section_info:
+            self.my_parser.print_section_info(args.section_info)
 
     def guess_filetype(self, args):
         logger.debug("Determining executable file type.")

@@ -19,13 +19,28 @@ class AbstractExecutable(object):
         self.binary = lief.parse(exec_file)
 
     @abstractmethod
-    def get_basic_info(self):
+    def basic_check(self):
         pass
 
-    def get_header(self):
-        return self.binary.header
+    @abstractmethod
+    def print_header(self):
+        pass
 
-    def print_sections(self, *argc, **argv,):
+    @abstractmethod
+    def print_segments(self):
+        pass
+
+    @abstractmethod
+    def print_segment_info(self, segment_name):
+        pass
+
+    def print_sections(self):
+        print(f"{'NAME':<15}{'OFFSET':<15}{'SIZE':<15}{'ENTROPY':<15}")
+        for section in self.binary.sections:
+            print(f"{section.name:<15}{section.offset:<15}{section.size:<15}{section.entropy:<15}")
+
+    @abstractmethod
+    def print_section_info(self, section_name):
         pass
 
     @abstractmethod

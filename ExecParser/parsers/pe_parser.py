@@ -22,7 +22,19 @@ class PEParser(abstract.AbstractExecutable):
         self.format = 'PE'
         logging.debug("PEParser instance initialized")
 
-    def get_basic_info(self):
+    def basic_check(self):
+        pass
+
+    def print_header(self):
+        pass
+
+    def print_segments(self):
+        pass
+
+    def print_segment_info(self):
+        pass
+
+    def print_sections(self):
         pass
 
     def get_hex(self):
