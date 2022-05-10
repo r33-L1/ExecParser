@@ -28,6 +28,7 @@ class MachOParser(abstract.AbstractExecutable):
     def print_header(self) -> None:
         _ = self.binary.header
         print(f"{'magic':<25}", _.magic)
+        print(f"{'entrypoint':<25}", self.binary.entrypoint)
         print(f"{'cpu_type':<25}", _.cpu_type)
         print(f"{'cpu_subtype':<25}", _.cpu_subtype)
         print(f"{'file_type':<25}", _.file_type)
@@ -35,14 +36,14 @@ class MachOParser(abstract.AbstractExecutable):
         print(f"{'sizeof_cmds':<25}", _.sizeof_cmds)
         print(f"{'flags':<25}", _.flags)
         if _.flags != 0:
-            print(f"{'flags_list':<25}", _.flags_list)
+            print(f"{'flags_list':<25}", list(map(lambda x: x.name, _.flags_list)))
         print(f"{'reserved':<25}", _.reserved)
 
     def print_segments(self):
         print(f"{'NAME':<15}{'FLAGS':<15}{'SIZE':<15}{'NUMBER_OF_SECTIONS':<21}{'CMD':<15}")
         for segment in self.binary.segments:
             print(f"{segment.name:<15}{segment.flags:<15}{segment.size:<15}{segment.numberof_sections:<20}",
-                  segment.command)
+                  segment.command.name)
 
     def print_segment_info(self, segment_name: str) -> None:
         try:
@@ -50,7 +51,7 @@ class MachOParser(abstract.AbstractExecutable):
         except lief.not_found as e:
             logging.error(e)
             return None
-        print(f"{'cmd':<25}", segment.command)
+        print(f"{'cmd':<25}", segment.command.name)
         print(f"{'cmdsize':<25}", segment.command_offset)
         print(f"{'segname':<25}", segment.name)
         print(f"{'vmaddr':<25}", segment.virtual_address)
@@ -74,12 +75,12 @@ class MachOParser(abstract.AbstractExecutable):
             return None
         print(f"{'name':<25}", section.name)
         print(f"{'size':<25}", section.size)
-        print(f"{'type':<25}", section.type)
+        print(f"{'type':<25}", section.type.name)
         print(f"{'alignment':<25}", section.alignment)
         print(f"{'offset':<25}", section.offset)
         print(f"{'flags':<25}", section.flags)
         if section.flags != 0:
-            print(f"{'flags_list':<15}", section.flags_list)
+            print(f"{'flags_list':<25}", list(map(lambda x: x.name, section.flags_list)))
         print(f"{'numberof_relocations':<25}", section.numberof_relocations)
         if section.numberof_relocations != 0:
             for it in range(section.numberof_relocations):
@@ -91,7 +92,5 @@ class MachOParser(abstract.AbstractExecutable):
         print(f"{'reserved2':<25}", section.reserved2)
         print(f"{'reserved3':<25}", section.reserved3)
 
-    def get_hex(self):
-        pass
 
 

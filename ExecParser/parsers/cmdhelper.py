@@ -1,10 +1,11 @@
 from ExecParser import logger
 from ExecParser.parsers.pe_parser import PEParser, NotPEFormat
 from ExecParser.parsers.macho_parser import MachOParser, NotMacOFormat
+from ExecParser.parsers.elf_parser import ELFParser, NotELFFormat
 from ExecParser.parsers.abstract import UnknownFormat
 
 
-ALL_PARSERS = [PEParser, MachOParser]
+ALL_PARSERS = [PEParser, ELFParser, MachOParser]
 
 
 class CmdHelper(object):
@@ -39,6 +40,9 @@ class CmdHelper(object):
                 self.my_parser = iter_parser(args.exec_file)
             except NotPEFormat:
                 logger.debug(f"{args.exec_file} is not a PE")
+                continue
+            except NotELFFormat:
+                logger.debug(f"{args.exec_file} is not a ELF")
                 continue
             except NotMacOFormat:
                 logger.debug(f"{args.exec_file} is not a Mach-O")

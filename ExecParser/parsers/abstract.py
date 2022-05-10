@@ -35,14 +35,11 @@ class AbstractExecutable(object):
         pass
 
     def print_sections(self):
-        print(f"{'NAME':<15}{'OFFSET':<15}{'SIZE':<15}{'ENTROPY':<15}")
+        print(f"{'NAME':<25}{'OFFSET':<15}{'SIZE':<15}{'ENTROPY':<15}")
         for section in self.binary.sections:
-            print(f"{section.name:<15}{section.offset:<15}{section.size:<15}{section.entropy:<15}")
+            print(f"{section.name:<25}{section.offset:<15}{section.size:<15}{section.entropy:<15}")
 
     @abstractmethod
     def print_section_info(self, section_name):
         pass
 
-    @abstractmethod
-    def get_hex(self):
-        pass
