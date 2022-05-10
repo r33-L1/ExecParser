@@ -2,6 +2,7 @@
 
 [![PyPI version](https://badge.fury.io/py/ExecParser.svg)](https://badge.fury.io/py/ExecParser)
 ![GitHub](https://img.shields.io/github/license/r33-L1/ExecParser)
+[![GitHub version](https://badge.fury.io/gh/r33-L1%2FExecParser.svg)](https://badge.fury.io/gh/r33-L1%2FExecParser)
 
 Parse PE, ELF, and Mach-O using lief
 
